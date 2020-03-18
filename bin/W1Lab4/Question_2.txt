@@ -1,0 +1,28 @@
+QUESTION 2.
+Write an in-mapper combiner algorithm modifying Co-occurrence Matrix (stripe approach) algorithm.
+
+Class Mapper
+    method initialize()
+        S = new AssociativeArray()
+
+    method map(docid a, doc d)
+        for all term u in record r do
+            H = new AssociativeArray()
+            for all term v in window(u) do
+                H{v} = H{v} + 1
+            if S{u} is null
+                S{u} = H
+            else
+                S{u} = S{u} + H
+
+    method close()
+        for all term u in S do
+            Emit(u, S{u})
+
+
+Class Reducer
+    method reduce(term u, AssociativeArray[H1,H2.........Hn])
+        S = new AssociativeArray()
+        for all stripe H in [H1,H2.........Hn] do
+            T = T + H
+        Emit(u, T)

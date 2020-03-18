@@ -1,0 +1,28 @@
+QUESTION 1.
+Write an in-mapper combiner algorithm modifying Co-occurrence Matrix (pairs approach) algorithm.
+
+Class Mapper
+    method initialize()
+        H = new AssociativeArray()
+
+    method map(docid a, doc d)
+        for all term u in  record r do
+            for all term v in window(u) do
+                Pair p = (u,v)
+                if p is null
+                    H{p} = 1
+                else
+                    H{p} = H{p} + 1
+
+    method close()
+        for all term p in H do
+            Emit(p,H{p})
+
+
+//Reducer Class Pseudo Code Using Pair Approach
+Class Reducer
+    method reduce(Pair(u,v), Integer[j1,j2...........jn])
+        sum = 0
+        for all term j in [j1,j2...........jn] do
+            sum = sum + j
+        Emit((u,v),sum)
